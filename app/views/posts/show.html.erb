@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+  | <b>Vote: </b><%= @post.post_vote_count.to_i %> | <b>Total Vote:</b><%= @post.total_vote_count.to_i %>
+</p>
+<p>
+  <b>Create:</b>
+  <%= @post.created_at %>
+</p>
+
+<p>
+  <b>Update (include reply update):</b>
+  <%= @post.last_update_time %>
+</p>
+<p>
+  <b>Content:</b>
+  <%= @post.content %>
+</p>
+<p>
+  <b>Tag:</b>
+  <%= @post.tag_list %>
+
+</p>
+
+<div>
+  <%= link_to 'Vote', new_vote_url %>
+</div>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %> |
+<%= link_to 'Reply', :controller => 'comments', :action => 'new' %> |
+<%= link_to 'Re', new_comment_url %>
+
+<% @comments_for_post.each do |post| %>
+    <div>*************************************</div>
+    <b>User: </b>
+    <%= User.find_by_id(post.user_id).name %>
+    <b>Title: </b>
+    <%= post.title %>
+    <b>Vote: </b>
+    <%= post.vote_number.to_i %>
+    <br><b>Create at: </b><%= post.created_at %><b>   Update at: </b><%= post.updated_at %>
+    <br>
+    <br>
+    <%= post.content %>
+    <br>
+    <br><%= link_to 'Show', post %> | <%= link_to 'Edit', edit_comment_path(post) %> | <%= link_to 'Destroy', post, method: :delete, data: {confirm: 'Are you sure?'} %>
+    <br>
+    <div>*************************************</div>
+<% end %>
+

@@ -1,0 +1,106 @@
+<h1>Listing posts</h1>
+
+<div id="tag_cloud">
+  Tag list:<% tag_cloud Post.tag_counts, %w{s m l} do |tag, css_class| %>
+      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>
+
+
+
+<div>
+=======================================================================================
+</div>
+<div>
+  <h2>Most Activated Posts</h2>
+</div>
+<div>
+  <table style = "background-color: yellow">
+    <tr>
+      <th>Category</th>
+      <th>Title</th>
+      <th>Vote</th>
+      <th>User</th>
+      <th>Content</th>
+      <th>Create</th>
+      <th>Update</th>
+      <th>Tags</th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @most_activated_post.each do |post| %>
+        <tr>
+          <td><%= Category.find(post.category_id).name %></td>
+          <td><%= post.title %></td>
+          <td><%= post.total_vote_count.to_i %></td>
+          <td><%= User.find(post.user_id).name %></td>
+          <td><%= post.content %></td>
+          <td><%= post.created_at.strftime("%Y-%b-%e-%H:%M") %></td>
+          <td><%= post.last_update_time.strftime("%Y-%b-%e-%H:%M") %></td>
+          <td> <%= raw post.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></td>
+          <td><%= link_to 'Show', post %></td>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+  </table>
+
+
+</div>
+<div>
+  =======================================================================================
+</div>
+<%= search_form_for @search do |f| %>
+
+      <%= f.label :title_cont, "Post title contains" %>
+      <%= f.text_field :title_cont %>
+
+<%= f.submit "Search" %>
+<% end %>
+<%= search_form_for @search do |f| %>
+
+      <%= f.label :content_cont, "Post content contains" %>
+      <%= f.text_field :content_cont %>
+
+<%= f.submit "Search" %>
+<% end %>
+<div>
+  <h2>Listing Posts</h2>
+</div>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Title</th>
+    <th>Vote</th>
+    <th>User</th>
+    <th>Content</th>
+    <th>Create</th>
+    <th>Update</th>
+    <th>Tags</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @all_posts_sort_by_update.each do |post| %>
+      <tr>
+        <td><%= Category.find(post.category_id).name %></td>
+        <td><%= post.title %></td>
+        <td><%= post.total_vote_count.to_i %></td>
+        <td><%= User.find(post.user_id).name %></td>
+        <td><%= post.content %></td>
+        <td><%= post.created_at.strftime("%Y-%b-%e-%H:%M") %></td>
+        <td><%= post.last_update_time.strftime("%Y-%b-%e-%H:%M") %></td>
+        <td><%= raw post.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></td>
+
+        <td><%= link_to 'Show', post %></td>
+        <td><%= link_to 'Edit', edit_post_path(post) %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post', new_post_path %>

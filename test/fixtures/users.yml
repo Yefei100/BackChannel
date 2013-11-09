@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  hashed_password: MyString
+  salt: MyString
+  email_address: MyString
+
+two:
+  name: MyString
+  hashed_password: MyString
+  salt: MyString
+  email_address: MyString
+
+
+<% (1 .. 1000).each do |i| %>
+fix_<%= i %>:
+  name : User_<%= i %>
+  hashed_password: userHashed_password_<%= i %>
+  salt: userSalt_<%= i %>
+  email_address: userEmail_address
+<% end %>

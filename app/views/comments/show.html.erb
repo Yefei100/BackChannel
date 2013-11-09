@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Post title:</b>
+  <%= Post.find(@comment.post_id).title %>
+</p>
+
+<p>
+  <b>Post content:</b>
+  <%= Post.find(@comment.post_id).content %>
+</p>
+
+<p>
+  <b>Comment Title:</b>
+  <%= @comment.title %> |
+  <b>Vote: </b><%= @comment.vote_number.to_i %>
+</p>
+
+<p>
+  <b>Comment Content:</b>
+  <%= @comment.content %>
+</p>
+
+<div>
+  <%= link_to 'Vote', new_vote_url %>
+</div>
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', post_path(@belong_to_post) %>

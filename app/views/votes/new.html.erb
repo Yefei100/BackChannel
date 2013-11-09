@@ -1,0 +1,49 @@
+<h1>Vote</h1>
+
+
+
+<% if @vote.post_id %>
+    <%= 'Vote the post: ' %>
+    <%= Post.find_by_id(@vote.post_id).title %>
+    <br>
+    <%= Post.find_by_id(@vote.post_id).content %>
+    <br>
+    <% if Post.find_by_id(@go_back_id) %>
+        <%= link_to 'Back', post_path(Post.find_by_id(@go_back_id)) %>
+    <% else %>
+        <%= link_to 'Back', posts_path %>
+    <% end %>
+
+
+
+    <% if @vote.comment_id = nil %>
+        <%= 'You already vote for this post' %>
+        <br>
+        <%= link_to 'Back', post_path(Post.find_by_id(@go_back_id)) unless @vote.comment_id %>
+    <% end %>
+<% end %>
+
+
+<% if @vote.comment_id != nil %>
+
+    <% if Comment.find_by_id(@vote.comment_id)%>
+        <%= Comment.find_by_id(@vote.comment_id).title %>
+        <br>
+        <%= Comment.find_by_id(@vote.comment_id).content %>
+        <br>
+        <%= link_to 'Back', comment_path(Comment.find_by_id(@go_back_id)) %>
+    <% end %>
+    <% else %>
+        <%= 'You already vote for this comment'  if Comment.find_by_id(@go_back_id) %>
+        <br>
+        <%= link_to 'Back', post_path(Post.find_by_id(Comment.find_by_id(@go_back_id).post_id)) if Comment.find_by_id(@go_back_id) && Post.find_by_id(Comment.find_by_id(@go_back_id).post_id) %>
+
+<% end %>
+
+<% if @vote.post_id.nil? && @vote.comment_id.nil? %>
+    <br>
+    <%= 'You cannot vote for yourself' %>
+    <br>
+    <%= link_to 'Back', posts_path %>
+<% end %>
+

@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  content: MyString
+
+two:
+  title: MyString
+  content: MyString
+
+
+<% (1 .. 1000).each do |i| %>
+fix_<%= i %>:
+  title: one
+  content: one
+<% end %>

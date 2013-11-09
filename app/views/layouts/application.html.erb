@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BackchannelApp</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if session[:user_id] && User.find_by_id(session[:user_id]) %>
+
+    <%= puts session[:user_id] %>
+    <%= "User name: " %>
+    <%= User.find_by_id(session[:user_id]).name %>
+    <%= link_to 'Logout', :controller => 'admin', :action => 'logout' %>
+<% else %>
+  <%= session[:user_id] = nil %>
+<% end %>
+
+
+
+<%= yield %>
+
+<br>
+<br>
+<%= link_to "Show all posts", posts_url %> <%= link_to "Show all categories", categories_url %>
+<%= link_to "Show all comments", comments_url %>
+
+<% unless session[:user_id] %>
+<%= link_to "Login/Sign up", :controller =>'admin', :action => 'login' %>
+<% end %>
+<% if session[:user_id] && User.find_by_id(session[:user_id]).isadmin %>
+<%= link_to "Show all users", users_url %>
+<% end %>
+</body>
+</html>

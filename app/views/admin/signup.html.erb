@@ -1,0 +1,29 @@
+<h1>Admin#signup</h1>
+<p>Find me in app/views/admin/signup.html.erb</p>
+
+
+<h1>New User</h1>
+<%= form_tag do %>
+    <legend>Please Sign Up</legend>
+    <div class="field">
+      <label for="name">Name:</label>
+      <%= text_field_tag :name, params[:name] %>
+    </div>
+    <div class="field">
+      <label for="password">Password:</label>
+      <%= password_field_tag :password, params[:password] %>
+    </div>
+
+    <div class="field">
+      <label for="confirm password">Confirm Password:</label>
+      <%= password_field_tag :password_confirmation %>
+    </div>
+    <div class="field">
+      <label for="email">Email:</label>
+      <%= text_field_tag :email_address, params[:email_address] %>
+    </div>
+
+    <div>
+      <%= submit_tag "Create Account" %>
+    </div>
+<% end %>
